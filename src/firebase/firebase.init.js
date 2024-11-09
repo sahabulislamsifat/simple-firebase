@@ -1,4 +1,5 @@
 //**Do not store config on the clint side. */
+//**DANGER! : Do not share config publicly */
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
