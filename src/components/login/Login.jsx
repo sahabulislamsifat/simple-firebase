@@ -1,4 +1,9 @@
-import { GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  signInWithPopup,
+  signOut,
+  TwitterAuthProvider,
+} from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import auth from "../../firebase/firebase.init";
 import { useState } from "react";
@@ -6,6 +11,7 @@ import { useState } from "react";
 const Login = () => {
   const googleProvider = new GoogleAuthProvider();
   const gitHubProvider = new GithubAuthProvider();
+  const twitterProvider = new TwitterAuthProvider();
 
   const [user, setUser] = useState(null);
   console.log(user);
@@ -23,6 +29,17 @@ const Login = () => {
   };
 
   const handleGithubSignIn = () => {
+    signInWithPopup(auth, gitHubProvider)
+      .then((result) => {
+        console.log(result.user);
+        setUser(result.user);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setUser(null);
+      });
+  };
+  const handleTwitterSignIn = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((result) => {
         console.log(result.user);
@@ -54,8 +71,11 @@ const Login = () => {
             <button className="btn btn-success" onClick={handleGoogleSignIn}>
               Login With Google
             </button>
-            <button className="btn btn-accent" onClick={handleGithubSignIn}>
+            <button className="btn btn-primary" onClick={handleGithubSignIn}>
               Login With GitHub
+            </button>
+            <button className="btn btn-info" onClick={handleTwitterSignIn}>
+              Login With Twitter
             </button>
           </>
         )}
